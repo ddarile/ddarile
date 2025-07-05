@@ -1,0 +1,446 @@
+.header {
+    display: flex; /* Располагаем элементы в одну строку */
+    justify-content: space-between; /* Распределяем пространство между элементами */
+    align-items: center; /* Центрируем элементы по вертикали */
+    padding: 15px 40px; /* Внутренние отступы сверху/снизу и слева/справа */
+    background-color: #1a1a1a; /* Цвет фона хедера */
+    height: 60px; /* Высота хедера */
+    position: fixed; /* Фиксированное позиционирование */
+    top: 0; /* Прикрепляем к верху окна */
+    left: 0; /* Прикрепляем к левому краю */
+    width: 100%; /* На всю ширину */
+    z-index: 1000; /* Высокий z-index, чтобы шапка была поверх остального контента */
+    transition: transform 0.3s ease; /* Плавная анимация */
+    box-sizing: border-box; /* Учитываем padding в общей ширине */
+}
+
+.header-left {
+    display: flex;
+    align-items: center; /* Центрирование элементов внутри блока */
+}
+
+.header-center {
+    position: absolute; /* Абсолютное позиционирование */
+    left: 50%; /* Смещаем в центр по горизонтали */
+    transform: translateX(-50%); /* Центрируем относительно своей ширины */
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Отступы между иконками */
+    margin-left: auto; /* Прижимаем к правому краю */
+}
+
+.logo img {
+    display: block; /* Блочное отображение */
+    max-height: 25px; /* Максимальная высота логотипа */
+    width: auto; /* Автоматическая ширина для сохранения пропорций */
+}
+
+.menu-text{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+/* Стили для анимированной кнопки меню */
+.menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin-right: 10px;
+    color: #e0e0e0;
+}
+
+.menu-button-container {
+    position: relative;
+    width: 24px;
+    height: 20px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menu-icon-line {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #e0e0e0;
+    border-radius: 2px;
+    transition: transform 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6),
+                opacity 0.3s ease-in-out,
+                background-color 0.3s ease;
+    transform-origin: center center;
+}
+
+/* Анимация при наведении */
+.menu-button:hover .menu-icon-line {
+    background-color: #ffffff;
+}
+
+/* Состояние "активно" для кнопки меню (когда меню открыто) */
+.menu-button.active .line-1 {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.menu-button.active .line-2 {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.menu-button.active .line-3 {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Анимация для кнопки закрытия в бургер-меню */
+.close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #e0e0e0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    overflow: hidden;
+}
+
+.close-button:hover {
+    transform: rotate(90deg);
+    color: #f0a4e2;
+
+}
+
+/* Анимация появления бургер-меню */
+.burger-menu {
+    position: fixed;
+    top: 0;
+    left: -450px;
+    width: 450px;
+    height: 100%;
+    background-color: #1a1a1a;
+    z-index: 2000;
+    transition: left 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.burger-menu.open {
+    left: 0;
+}
+
+.burger-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 4rem 3rem;
+}
+
+.burger-link {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    transition: color 0.2s, transform 0.3s ease;
+    transform: translateX(-20px);
+    opacity: 0;
+}
+
+.burger-menu.open .burger-link {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.burger-link:hover {
+    color: #9d9d9d;
+}
+
+
+  #burger-link-guestion
+  {
+    margin-top: 25px;
+    border-top: 1px solid #444;
+    padding-top: 20px; 
+  }
+
+  .burger-link:hover{
+    color: #9d9d9d;
+  }
+
+.catalog-dropdown {
+    display: flex;
+    align-items: center;
+    cursor: pointer; 
+}
+
+/* Стили для выпадающего меню */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    padding: 15px 0;
+    top: 100%;
+    left: 0;
+    background-color: #1a1a1a;
+    min-width: 300px;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.2);
+    z-index: 100;
+    margin-top: 10px;
+    border-radius: 20px;
+}
+
+/* Cтили для ссылок в выпадающем меню */
+.dropdown-content a {
+    color: #e0e0e0;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: color 0.2s; /* Изменяем только цвет текста при наведении */
+    background-color: transparent; /* Убираем фоновый цвет */
+}
+
+.dropdown-content a:hover {
+    background-color: transparent; /* Убираем изменение фона */
+    color: #9d9d9d;
+}
+
+/* Класс для отображения выпадающего меню */
+.dropdown-content.show {
+    display: block;
+}
+
+/* Анимация стрелки */
+.dropdown-arrow {
+    transition: transform 0.4s ease;
+}
+
+.catalog-dropdown.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* Позиционирование для контейнера выпадающего меню */
+.catalog-dropdown {
+    position: relative;
+}
+
+.catalog-text {
+    font-size: 14px;
+    margin-right: 5px; /* Отступ между текстом и стрелкой */
+}
+
+.dropdown-arrow {
+    margin-top: 2px; /* Смещение стрелки вниз */
+}
+
+.header-center {
+    position: absolute; /* Абсолютное позиционирование */
+    left: 50%; /* Смещаем в центр по горизонтали */
+    transform: translateX(-50%); /* Центрируем относительно своей ширины */
+}
+
+.logo {
+    font-weight: bold; /* Жирное начертание */
+    font-size: 18px; /* Размер шрифта */
+    letter-spacing: 1px; /* Межбуквенное расстояние */
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Отступы между иконками */
+}
+
+.icon-link {
+    color: #e0e0e0; /* Цвет иконок */
+    text-decoration: none; /* Убираем подчёркивание */
+}
+
+
+/* Если вы хотите скрыть индикатор, когда нет уведомлений */
+.notification-badge.hidden {
+    display: none;
+}
+
+
+/* Стили для выпадающего списка уведомлений */
+.notification-dropdown {
+    position: relative;
+}
+
+.notification-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -1px;
+    width: 8px;
+    height: 8px;
+    background-color: #F0A4E2;
+    border-radius: 50%;
+    display: block;
+}
+
+.notification-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: -50px;
+    background-color: #1a1a1a;
+    min-width: 320px;
+    max-width: 400px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    margin-top: 15px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.notification-content.show {
+    display: block;
+}
+
+.notification-header {
+    padding: 15px;
+    border-bottom: 1px solid #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notification-header h3 {
+    font-size: 14px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.notification-list {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    display: flex;
+    padding: 15px;
+    transition: background-color 0.5s;
+}
+
+.notification-item:hover {
+    background-color: #3a3a3a;
+}
+
+.notification-item.unread:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.notification-content-container {
+    flex: 1;
+}
+
+.notification-text {
+    font-size: 14px;
+    margin-bottom: 5px;
+    line-height: 1.4;
+    color: #d6d6d6;
+}
+
+.notification-time {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.notification-footer {
+    padding: 12px 15px;
+    text-align: center;
+    border-top: 1px solid #444;
+}
+
+.mark-all-read {
+    font-size: 14px;
+    color: #e0e0e0;
+    text-decoration: none;
+}
+
+.mark-all-read:hover {
+    color: #bdbdbd;
+}
+
+/* Стрелка для выпадающего списка */
+.notification-content::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 15px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #333;
+}
+
+/* Стили для скроллбара в списке уведомлений */
+.notification-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notification-list::-webkit-scrollbar-track {
+    background: #333;
+}
+
+.notification-list::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 3px;
+}
+
+.notification-list::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+body.menu-open .container {
+    filter: blur(1px);
+}
+
+
+
+
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+    /* Уменьшаем горизонтальные отступы для разных секций на планшетах и небольших экранах */
+    .header
+     {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    /* Скрываем текст "Меню" */
+    .menu-text {
+        display: none;
+    }
+    
+    /* Скрываем "Каталог услуг" и выпадающий список */
+    .catalog-dropdown {
+        display: none;
+    }
+    
+    /* Увеличиваем отступ между бургер-меню и правой частью шапки */
+    .header-left {
+        margin-right: auto;
+    }
+    
+    /* Уменьшаем отступы в шапке для экономии места */
+    .header {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}

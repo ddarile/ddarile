@@ -1,0 +1,282 @@
+body > .container,
+body > .footer > .container {
+    padding-left: 30px; /* Отступ слева */
+    padding-right: 30px; /* Отступ справа */
+    max-width: 100%;
+    margin: 0 auto; /* Центрирование по горизонтали */
+    box-sizing: border-box; /* Важно для правильного расчета ширины */
+}
+
+/* Стили для секции скидки */
+.discount-section {
+    position: relative;
+    width: 100%;
+    padding: 80px 0;
+    margin-bottom: 200px;
+    margin-top: 50px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, #202020 100%);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  }
+  
+  .discount-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+  }
+  
+  .discount-badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(240, 164, 226, 0.2);
+    color: #f0a4e2;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 30px;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+  }
+  
+  .discount-badge:hover {
+    background-color: rgba(240, 164, 226, 0.3);
+    transform: translateY(-5px);
+  }
+  
+  .discount-badge::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 1px solid rgba(240, 164, 226, 0.3);
+    border-radius: 30px;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .discount-badge:hover::before {
+    opacity: 1;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+  }
+  
+  .discount-title {
+    font-size: 42px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #e0e0e0;
+    font-family: "Montserrat Alternates", sans-serif;
+    line-height: 1.2;
+    position: relative;
+  }
+  
+  .discount-title .highlight {
+    color: #f0a4e2;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .discount-title .highlight::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background-color: rgba(240, 164, 226, 0.3);
+    border-radius: 4px;
+    z-index: -1;
+  }
+  
+  .discount-description {
+    font-size: 18px;
+    text-align: center;
+    max-width: 600px;
+    margin-bottom: 40px;
+    color: rgba(224, 224, 224, 0.8);
+    line-height: 1.6;
+  }
+  
+  .discount-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    background-color: #f0a4e2;
+    color: #1a1a1a;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 30px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .discount-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(240, 164, 226, 0.3);
+  }
+  
+  .discount-button .button-hover-effect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease-out, height 0.6s ease-out;
+    z-index: -1;
+  }
+  
+  .discount-button:hover .button-hover-effect {
+    width: 300px;
+    height: 300px;
+  }
+  
+  /* Декоративные элементы */
+  .discount-decoration {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .discount-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(240, 164, 226, 0.2) 0%, transparent 70%);
+    transition: transform 0.5s ease;
+  }
+  
+  .discount-circle-1 {
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+  }
+  
+  .discount-circle-2 {
+    bottom: -150px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    opacity: 0.7;
+  }
+  
+  .discount-shape {
+    position: absolute;
+    opacity: 0.1;
+    transition: all 0.5s ease;
+  }
+  
+  .discount-shape-1 {
+    top: 20%;
+    right: 10%;
+    width: 80px;
+    height: 80px;
+    background-color: #f0a4e2;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: floatAnimation 8s ease-in-out infinite;
+  }
+  
+  .discount-shape-2 {
+    bottom: 20%;
+    left: 10%;
+    width: 60px;
+    height: 60px;
+    background-color: #f0a4e2;
+    border-radius: 50% 50% 50% 50% / 60% 40% 60% 40%;
+    animation: floatAnimation 6s ease-in-out infinite reverse;
+  }
+  
+  .discount-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+  }
+  
+  .discount-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: rgba(240, 164, 226, 0.3);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  
+  /* Анимации */
+  @keyframes floatAnimation {
+    0%,
+    100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate(10px, -10px) rotate(5deg);
+    }
+    50% {
+      transform: translate(0, -20px) rotate(0deg);
+    }
+    75% {
+      transform: translate(-10px, -10px) rotate(-5deg);
+    }
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .discount-section {
+      padding: 60px 0;
+    }
+  
+    .discount-container {
+      padding: 0 20px;
+    }
+  
+    .discount-title {
+      font-size: 36px;
+    }
+  
+    .discount-description {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .discount-section {
+      padding: 40px 0;
+    }
+  
+    .discount-title {
+      font-size: 28px;
+    }
+  
+    .discount-badge {
+      font-size: 12px;
+    }
+  
+    .discount-button {
+      padding: 14px 28px;
+      font-size: 14px;
+    }
+  }

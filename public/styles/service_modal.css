@@ -1,0 +1,418 @@
+/* Модальное окно для детального просмотра услуги */
+.service-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.699);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
+}
+
+.service-modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.service-modal-content {
+  background: #252525;
+  border-radius: 25px;
+  width: 100%;
+  max-width: 1200px;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+  animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+}
+
+.service-modal-close {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+
+.service-modal-close:hover {
+  background: rgba(240, 164, 226, 0.2);
+  color: #f0a4e2;
+  transform: rotate(90deg);
+}
+
+.service-modal-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Левая часть - изображение */
+.service-modal-image {
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-modal-image img {
+  margin-left: 20px;
+}
+
+/* Правая часть - информация */
+.service-modal-info {
+  padding: 40px;
+  overflow-y: auto;
+  background: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  min-height: 0;
+}
+
+.service-modal-info::-webkit-scrollbar {
+  width: 5px;
+}
+
+.service-modal-info::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 4px;
+}
+
+.service-modal-info::-webkit-scrollbar-thumb {
+  background: #f0a4e2;
+  border-radius: 4px;
+}
+
+.service-modal-title {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #e0e0e0;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.service-modal-description {
+  color: #c4c4c4;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.service-modal-description p {
+  margin: 0;
+}
+
+.pricing-options {
+  margin-bottom: 25px;
+}
+
+.pricing-option {
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.pricing-option:hover {
+  background: rgba(240, 164, 226, 0.05);
+  border-color: rgba(240, 164, 226, 0.2);
+}
+
+.pricing-option.selected {
+  background: rgba(240, 164, 226, 0.1);
+  border-color: #f0a4e2;
+}
+
+.pricing-radio {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pricing-radio input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #666;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  appearance: none;
+  transition: all 0.3s ease;
+}
+
+.pricing-radio input[type="radio"]:checked {
+  border-color: #f0a4e2;
+  background: #f0a4e2;
+}
+
+.pricing-radio input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1a1a1a;
+}
+
+.pricing-radio label {
+  color: #e0e0e0;
+  font-size: 14px;
+  cursor: pointer;
+  flex: 1;
+}
+
+/* Стили для блока описания типа продукции */
+.product-type-description {
+  background: rgba(240, 164, 226, 0.05);
+  border: 1px solid rgba(240, 164, 226, 0.2);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.product-type-description h4 {
+  color: #f0a4e2;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  font-family: "Montserrat Alternates", sans-serif;
+}
+
+.product-type-description p {
+  color: #c4c4c4;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.product-type-description.show {
+  background: rgba(240, 164, 226, 0.1);
+  border-color: #f0a4e2;
+}
+
+/* Итоговая цена и кнопка заказа */
+.service-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid #333;
+  gap: 20px;
+}
+
+.total-price {
+  font-size: 20px;
+  font-weight: 600;
+  color: #e0e0e0;
+}
+
+.total-price span:last-child {
+  color: #f0a4e2;
+  font-size: 24px;
+}
+
+.order-button {
+  background: linear-gradient(135deg, #f0a4e2, #c084cc);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Montserrat", sans-serif;
+  min-width: 180px;
+  box-shadow: 0 8px 25px rgba(240, 164, 226, 0.3);
+}
+
+.order-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(240, 164, 226, 0.4);
+}
+
+.order-button:active {
+  transform: translateY(0);
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .service-modal-content {
+    max-width: 95%;
+    height: 95vh;
+  }
+
+  .service-modal-body {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+
+  .service-modal-image {
+    min-height: 300px;
+    flex-shrink: 0;
+  }
+
+  .service-modal-info {
+    padding: 30px;
+    overflow-y: visible;
+  }
+
+  .service-modal-title {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-modal {
+    padding: 10px;
+  }
+
+  .service-modal-content {
+    border-radius: 20px;
+  }
+
+  .service-modal-close {
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .service-modal-info {
+    padding: 25px 20px;
+    gap: 20px;
+  }
+
+  .service-modal-title {
+    font-size: 22px;
+  }
+
+  .service-includes,
+  .service-pricing {
+    padding: 20px;
+  }
+
+  .service-total {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  .order-button {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .total-price {
+    text-align: center;
+  }
+
+  .product-type-description {
+    padding: 15px;
+  }
+
+  .product-type-description h4 {
+    font-size: 14px;
+  }
+
+  .product-type-description p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-modal-image {
+    min-height: 250px;
+  }
+
+  .service-modal-info {
+    padding: 20px 15px;
+  }
+
+  .service-modal-title {
+    font-size: 20px;
+  }
+
+  .service-modal-description {
+    font-size: 14px;
+  }
+
+  .service-includes h3 {
+    font-size: 16px;
+  }
+
+  .service-includes li {
+    font-size: 13px;
+  }
+
+  .pricing-radio label {
+    font-size: 13px;
+  }
+
+  .total-price {
+    font-size: 18px;
+  }
+
+  .total-price span:last-child {
+    font-size: 20px;
+  }
+
+  .order-button {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  .product-type-description {
+    padding: 12px;
+  }
+}

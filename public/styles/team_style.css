@@ -1,0 +1,664 @@
+/* Сброс стилей по умолчанию для всех элементов */
+* {
+    margin: 0;
+    max-width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Запрет горизонтальной прокрутки */
+  html,
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+  
+  body {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    font-family: "Montserrat", sans-serif;
+    margin-top: 60px;
+  }
+  
+  /* Стили для страницы команды */
+  .team-main {
+    padding: 90px 40px 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  /* Стили для заголовка и фильтров */
+  .team-header {
+    margin-bottom: 60px;
+  }
+  
+  .team-title {
+    font-size: 42px;
+    font-weight: 600;
+    color: #e0e0e0;
+    font-family: "Montserrat Alternates", sans-serif;
+    position: relative;
+    margin: 0 0 15px 0;
+  }
+  
+  .team-title::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: #f0a4e2;
+    border-radius: 2px;
+  }
+  
+  /* Стили для строки заголовка с фильтрами */
+  .team-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+  
+  /* Стили для выпадающего списка фильтров */
+  .filters-dropdown {
+    position: relative;
+  }
+  
+  .filters-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background-color: transparent;
+    border: 1px solid rgba(224, 224, 224, 0.3);
+    border-radius: 30px;
+    color: #e0e0e0;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .filters-button:hover {
+    border-color: #f0a4e2;
+    color: #f0a4e2;
+  }
+  
+  .filters-button svg {
+    transition: transform 0.3s ease;
+  }
+  
+  .filters-button.active svg {
+    transform: rotate(180deg);
+  }
+  
+  .filters-dropdown-content {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 450px;
+    background-color: #1a1a1a;
+    border-radius: 15px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+  }
+  
+  .filters-dropdown-content.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(224, 224, 224, 0.1);
+  }
+  
+  .filters-header h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #e0e0e0;
+    margin: 0;
+  }
+  
+  .clear-filters {
+    background: none;
+    border: none;
+    color: #f0a4e2;
+    font-size: 14px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+  
+  .clear-filters:hover {
+    opacity: 0.8;
+  }
+  
+  .filters-list {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 15px 20px;
+  }
+  
+  .filter-section {
+    margin-bottom: 20px;
+  }
+  
+  .filter-section h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f0a4e2;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .filter-checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+  
+  .filter-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .checkbox-custom {
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: transparent;
+    border: 1px solid rgba(224, 224, 224, 0.5);
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .filter-checkbox:hover .checkbox-custom {
+    border-color: #f0a4e2;
+  }
+  
+  .filter-checkbox input:checked ~ .checkbox-custom {
+    background-color: #f0a4e2;
+    border-color: #f0a4e2;
+  }
+  
+  .checkbox-custom:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  
+  .filter-checkbox input:checked ~ .checkbox-custom:after {
+    display: block;
+  }
+  
+  .filter-label {
+    font-size: 14px;
+    color: #e0e0e0;
+    transition: color 0.3s ease;
+  }
+  
+  .filter-checkbox:hover .filter-label {
+    color: #f0a4e2;
+  }
+  
+  .filters-footer {
+    padding: 15px 20px;
+    border-top: 1px solid rgba(224, 224, 224, 0.1);
+    text-align: center;
+  }
+  
+  .apply-filters {
+    padding: 8px 30px;
+    background-color: #f0a4e2;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: inline-block;
+    min-width: 200px;
+  }
+  
+  .apply-filters:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(240, 164, 226, 0.3);
+  }
+  
+  /* Стили для скроллбара в списке фильтров */
+  .filters-list::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .filters-list::-webkit-scrollbar-track {
+    background: #333;
+    border-radius: 3px;
+  }
+  
+  .filters-list::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 3px;
+  }
+  
+  .filters-list::-webkit-scrollbar-thumb:hover {
+    background: #666;
+  }
+  
+  .team-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 30px;
+  }
+  
+  .filter-button {
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 1px solid rgba(224, 224, 224, 0.3);
+    border-radius: 30px;
+    color: #e0e0e0;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .filter-button:hover {
+    border-color: #f0a4e2;
+    color: #f0a4e2;
+    transform: translateY(-3px);
+  }
+  
+  .filter-button.active {
+    background-color: #f0a4e2;
+    color: #1a1a1a;
+    border-color: #f0a4e2;
+  }
+  
+  /* Стили для сетки команды - современный дизайн с 3D-эффектом и флип-картами */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+  
+  .team-card {
+    position: relative;
+    height: 400px;
+    perspective: 1000px;
+    /* убрал cursor: pointer отсюда */
+  }
+  
+  .team-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    border-radius: 20px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer; /* переместил cursor сюда */
+    pointer-events: auto;
+  }
+  
+  .team-card:hover .team-card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  .team-card-front,
+  .team-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .team-card-front {
+    background: linear-gradient(145deg, #252525, #2a2a2a);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    position: relative;
+    gap: 15px;
+  }
+  
+  .team-card-back {
+    background: linear-gradient(145deg, #2a2a2a, #252525);
+    transform: rotateY(180deg);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    pointer-events: auto;
+  }
+  
+  /* Стили для аватара */
+  .team-avatar {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 15px; /* изменено с 10px на 5px */
+  }
+  
+  .avatar-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #333;
+    position: relative;
+    z-index: 1;
+    background-image: url("ictures\IMG_1854.JPG");
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .avatar-decoration {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 50%;
+    border: 2px solid #f0a4e2;
+    opacity: 0.5;
+    z-index: 0;
+    animation: pulse 2s infinite ease-in-out;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+  }
+  
+  .team-info {
+    text-align: center;
+    z-index: 2;
+  }
+  
+  .team-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #e0e0e0;
+    margin-bottom: 5px;
+  }
+  
+  .team-position {
+    font-size: 14px;
+    color: #f0a4e2;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  
+  .team-rating {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  
+  .star {
+    color: #f0a4e2;
+    margin: 0 2px;
+    font-size: 16px;
+  }
+  
+  /* Стили для пустых звезд */
+  .star.empty {
+    color: rgba(240, 164, 226, 0.3);
+  }
+  
+  /* Стили для задней части карточки */
+  .team-bio {
+    margin-bottom: 20px;
+    overflow-y: auto;
+    max-height: 280px; /* увеличено с 200px */
+    padding-right: 5px;
+  }
+  
+  .team-bio::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .team-bio::-webkit-scrollbar-track {
+    background: rgba(60, 60, 60, 0.3);
+    border-radius: 2px;
+  }
+  
+  .team-bio::-webkit-scrollbar-thumb {
+    background: rgba(240, 164, 226, 0.5);
+    border-radius: 2px;
+  }
+  
+  .team-bio::-webkit-scrollbar-thumb:hover {
+    background: rgba(240, 164, 226, 0.7);
+  }
+  
+  .team-bio p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(224, 224, 224, 0.8);
+    margin-bottom: 10px;
+  }
+  
+  /* Стили для team-contact */
+  .team-contact {
+    text-align: center;
+    z-index: 1000;
+    position: relative;
+    padding: 15px;
+    pointer-events: auto;
+  }
+  
+  .team-contact .profile-link {
+    display: inline-block;
+    padding: 15px 35px;
+    background-color: #f0a4e2;
+    color: #1a1a1a;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid #f0a4e2;
+    cursor: pointer;
+    z-index: 9999;
+    position: relative;
+    min-width: 140px;
+    text-align: center;
+    pointer-events: auto;
+  }
+  
+  .team-contact .profile-link:hover {
+    background-color: transparent !important;
+    color: #f0a4e2 !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 5px 15px rgba(240, 164, 226, 0.3) !important;
+    border-color: #f0a4e2 !important;
+  }
+  
+  .team-contact .profile-link:active {
+    transform: translateY(-1px);
+  }
+  
+  /* Стили для пагинации */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 60px;
+  }
+  
+  .pagination-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 1px solid rgba(224, 224, 224, 0.3);
+    color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .pagination-button:hover {
+    border-color: #f0a4e2;
+    color: #f0a4e2;
+    transform: translateY(-3px);
+  }
+  
+  .pagination-button.active {
+    background-color: #f0a4e2;
+    color: #1a1a1a;
+    border-color: #f0a4e2;
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 1200px) {
+    .team-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .team-main {
+      padding: 100px 30px 60px;
+    }
+  
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  
+    .team-title {
+      font-size: 36px;
+    }
+  
+    .filters-dropdown-content {
+      left: 0;
+      min-width: 450px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .team-main {
+      padding: 80px 20px 40px;
+    }
+  
+    .team-filters {
+      gap: 10px;
+    }
+  
+    .filter-button {
+      padding: 8px 15px;
+      font-size: 11px;
+    }
+  
+    .team-card {
+      height: 350px;
+    }
+  
+    .team-name {
+      font-size: 18px;
+    }
+  
+    .team-bio p {
+      font-size: 13px;
+    }
+  
+    /* Адаптивность для фильтров */
+    .team-header-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+    }
+  
+    .filters-dropdown-content {
+      min-width: 400px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .team-title {
+      font-size: 28px;
+    }
+  
+    .team-title::after {
+      width: 40px;
+    }
+  
+    .pagination-button {
+      width: 35px;
+      height: 35px;
+    }
+  
+    .filters-dropdown-content {
+      min-width: 350px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .filters-dropdown-content {
+      min-width: 300px;
+      right: -10px;
+    }
+  }
+  
+  .team-card:hover .team-card-back {
+    pointer-events: auto;
+  }
+  
+  .team-card:hover .team-card-front {
+    pointer-events: none;
+  }
+  

@@ -1,0 +1,715 @@
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: var(--surface-color);
+  border-radius: 15px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: slideIn 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+
+.modal-content.large {
+  max-width: 900px;
+}
+
+.modal-content.small {
+  max-width: 400px;
+}
+
+.modal-header {
+  background: var(--gradient-admin);
+  color: white;
+  padding: 20px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.close {
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  padding: 25px;
+  max-height: calc(90vh - 80px);
+  overflow-y: auto;
+}
+
+.modal-tabs {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  padding: 12px 20px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+
+.tab-btn.active {
+  color: var(--admin-color);
+  border-bottom-color: var(--admin-color);
+}
+
+.tab-btn:hover {
+  color: var(--admin-color);
+  background: rgba(74, 144, 226, 0.1);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.table-container {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-color);
+}
+
+.admin-table th {
+  background: var(--gradient-admin);
+  color: white;
+  padding: 15px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.admin-table td {
+  padding: 15px 12px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.admin-table tr:hover {
+  background: rgba(74, 144, 226, 0.05);
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Кнопки действий */
+.btn-icon {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 2px;
+  color: var(--text-muted);
+}
+
+.btn-icon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-icon.edit:hover {
+  border-color: var(--admin-color);
+  color: var(--admin-color);
+  background: rgba(74, 144, 226, 0.1);
+}
+
+.btn-icon.delete:hover {
+  border-color: #dc3545;
+  color: #dc3545;
+  background: rgba(220, 53, 69, 0.1);
+}
+
+.btn-icon.view:hover {
+  border-color: var(--success-color);
+  color: var(--success-color);
+  background: rgba(40, 167, 69, 0.1);
+}
+
+.btn-icon.block:hover {
+  border-color: var(--warning-color);
+  color: var(--warning-color);
+  background: rgba(255, 193, 7, 0.1);
+}
+
+.admin-form {
+  max-width: 100%;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Центрирование кнопок формы */
+.form-actions-center {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.form-actions-center .btn {
+  min-width: 150px;
+}
+
+/* Стили для поля загрузки файла */
+.form-group input[type="file"] {
+  padding: 8px 12px !important;
+  border: 2px dashed var(--border-color) !important;
+  border-radius: 8px !important;
+  background: var(--bg-color) !important;
+  color: var(--text-primary) !important;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 14px !important;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.form-group input[type="file"]:hover {
+  border-color: var(--admin-color) !important;
+  background: rgba(74, 144, 226, 0.05) !important;
+}
+
+.form-group input[type="file"]:focus {
+  outline: none;
+  border-color: var(--admin-color) !important;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-color);
+  color: var(--text-primary);
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--admin-color);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.role-select,
+.level-select {
+  padding: 6px 10px !important;
+  font-size: 12px !important;
+  border-radius: 6px !important;
+  background: var(--surface-color) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+  cursor: pointer;
+  min-width: 100px;
+}
+
+.role-select:focus,
+.level-select:focus {
+  border-color: var(--admin-color) !important;
+}
+
+/* Звездный рейтинг */
+.star-rating {
+  display: flex;
+  gap: 2px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.star {
+  font-size: 20px;
+  color: #444;
+  transition: color 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.star.active {
+  color: var(--admin-color);
+}
+
+.star:hover {
+  color: var(--admin-color);
+}
+
+/* Поиск */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px 15px !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  background: var(--bg-color) !important;
+  color: var(--text-primary) !important;
+  font-family: "Montserrat", sans-serif !important;
+}
+
+.search-btn {
+  background: var(--admin-color);
+  border: none;
+  border-radius: 8px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+  background: var(--admin-secondary);
+  transform: translateY(-2px);
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: var(--gradient-admin);
+  color: white;
+  box-shadow: var(--shadow-admin);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(74, 144, 226, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-muted);
+  border: 2px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: var(--surface-color);
+  border-color: var(--admin-color);
+  color: var(--admin-color);
+  transform: translateY(-2px);
+}
+
+/* Форма добавления категории */
+.add-category-form {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.form-inline {
+  display: flex;
+  gap: 15px;
+  align-items: end;
+}
+
+.inline-input {
+  flex: 1;
+  padding: 12px 15px !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  background: var(--bg-color) !important;
+  color: var(--text-primary) !important;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 14px !important;
+}
+
+.inline-input:focus {
+  outline: none;
+  border-color: var(--admin-color) !important;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+/* Обложки услуг */
+.service-cover {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+/* Модальное окно подтверждения */
+.confirm-modal {
+  text-align: center;
+  padding: 30px 25px;
+}
+
+.confirm-icon {
+  margin: 0 auto 20px;
+  width: 64px;
+  height: 64px;
+  background: var(--gradient-admin);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.confirm-modal h3 {
+  margin: 0 0 15px;
+  color: var(--text-primary);
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.confirm-modal p {
+  margin: 0 0 25px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.confirm-actions .btn {
+  min-width: 100px;
+}
+
+/* Анимация для подтверждения */
+.confirm-modal .confirm-icon {
+  animation: bounceIn 0.5s ease;
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Стили для разных типов подтверждения */
+.confirm-modal.warning .confirm-icon {
+  background: linear-gradient(135deg, #ffc107, #e0a800);
+}
+
+.confirm-modal.warning .confirm-icon svg {
+  stroke: #fff;
+}
+
+.confirm-modal.danger .confirm-icon {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+}
+
+.confirm-modal.success .confirm-icon {
+  background: linear-gradient(135deg, #28a745, #1e7e34);
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .modal-header {
+    padding: 15px 20px;
+  }
+
+  .modal-header h2 {
+    font-size: 18px;
+  }
+
+  .modal-body {
+    padding: 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .admin-table {
+    font-size: 12px;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 10px 8px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal-tabs {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .tab-btn {
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 0;
+  }
+
+  .tab-btn.active {
+    background: rgba(74, 144, 226, 0.1);
+  }
+
+  .form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .inline-input {
+    margin-bottom: 15px;
+  }
+
+  .star-rating {
+    justify-content: center;
+  }
+
+  .confirm-actions {
+    flex-direction: column;
+  }
+
+  .confirm-actions .btn {
+    width: 100%;
+  }
+
+  .form-actions-center {
+    flex-direction: column;
+  }
+
+  .form-actions-center .btn {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-container {
+    font-size: 11px;
+  }
+
+  .btn-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-btn {
+    width: 100%;
+    height: 40px;
+  }
+}
+
+/* Стили для превью обложки при редактировании */
+.current-cover-preview {
+  margin-bottom: 15px;
+}
+
+.current-cover-preview img {
+  display: block;
+  border: 1px solid var(--border-color);
+  background: var(--surface-color);
+  padding: 5px;
+}
+
+/* Улучшенные стили для селектов */
+.form-group select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c4c4c4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px !important;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.form-group select:focus {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a90e2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+
+/* Стили для опций селекта */
+.form-group select option {
+  background: var(--surface-color);
+  color: var(--text-primary);
+  padding: 8px 12px;
+}
+
+.form-group select option:hover {
+  background: rgba(74, 144, 226, 0.1);
+}
+
+.form-group select option:checked {
+  background: var(--admin-color);
+  color: white;
+}
+
+/* Дополнительные стили для мобильных устройств */
+@media (max-width: 768px) {
+  .form-group select {
+    font-size: 16px; /* Предотвращает зум на iOS */
+  }
+}
