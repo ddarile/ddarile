@@ -1,0 +1,149 @@
+create table account_role (
+   id_role              SERIAL               primary key,
+   role_name            VARCHAR(32)          not null unique
+);
+INSERT INTO account_role (role_name) VALUES
+('client'),
+('designer'),
+('manager'),
+('admin');
+UPDATE personal_account SET id_role = 4 WHERE id_account = 1;
+UPDATE personal_account SET id_role = 3 WHERE id_account = 2;
+create table design_type (
+   id_design_type       SERIAL               primary key,
+   design_type_name     VARCHAR(32)          not null unique
+);
+create table project_status (
+   id_project_status    SERIAL               primary key,
+   project_status_name  VARCHAR(16)          not null unique
+);
+INSERT INTO project_status (project_status_name) VALUES
+('new'),
+('progress'),
+('complete'),
+('canceled');
+create table qualification_level (
+   id_level                   SERIAL         primary key,
+   level_name                 INT4           not null unique,
+   level_percentage_indicator FLOAT8         not null
+);
+create table service (
+   id_service           SERIAL               primary key,
+   id_design_type       INT4                 not null,
+   service_path         VARCHAR(2048)        not null,
+   service_name         VARCHAR(128)         not null unique,
+   service_description  VARCHAR(2048)        not null,
+   service_price        DECIMAL              not null,
+   foreign key (id_design_type) references design_type (id_design_type)
+);
+create table product_type (
+   id_product_type      SERIAL               primary key,
+   id_service           INT4                 not null,
+   product_type_name    VARCHAR(64)          not null unique,
+   product_price        DECIMAL              not null,
+   completion_period    INT4                 not null,
+   product_description  VARCHAR(1024)        null,
+   foreign key (id_service) references service (id_service) on delete cascade
+);
+create table personal_account (
+   id_account           SERIAL               primary key,
+   id_role              INT4                 not null,
+   account_name         VARCHAR(64)          not null,
+   account_email        VARCHAR(128)         not null unique,
+   account_password     VARCHAR(2048)          not null,
+   account_path         VARCHAR(2048)        not null,
+   foreign key (id_role) references account_role (id_role)
+);
+create table designer (
+   id_designer          SERIAL               primary key,
+   designer_description VARCHAR(1024)        not null,
+   designer_status      BOOL                 not null,
+   id_level             INT4                 not null,
+   id_account           INT4                 not null,
+   foreign key (id_level) references qualification_level (id_level),
+   foreign key (id_account) references personal_account (id_account) on delete cascade
+);
+create table portfolio (
+   id_portfolio         SERIAL               primary key,
+   id_design_type       INT4,
+   id_designer          INT4                 not null,
+   name_portfolio       VARCHAR(128)         not null,
+   portfolio_description VARCHAR(2048)       not null,
+   portfilio_cover      VARCHAR(2048)        not null,
+   foreign key (id_design_type) references design_type (id_design_type) on delete set null,
+   foreign key (id_designer) references designer (id_designer) on delete cascade
+);
+create table art_work (
+   id_work              SERIAL               primary key,
+   id_portfolio         INT4                 not null,
+   work_path            VARCHAR(2048)        not null,
+  foreign key (id_portfolio) references portfolio (id_portfolio) on delete cascade
+);
+create table project (
+   id_project           SERIAL               primary key,
+   id_project_status    INT4                 not null,
+   id_account           INT4,
+   id_designer          INT4,
+   id_product_type      INT4,
+   order_date           DATE                 not null,
+   finish_date          DATE,
+   foreign key (id_project_status) references project_status (id_project_status),
+   foreign key (id_product_type) references product_type (id_product_type) on delete set null,
+   foreign key (id_account) references personal_account (id_account) on delete set null,
+   foreign key (id_designer) references personal_account (id_account) on delete set null
+);
+create table chat (
+   id_chat              SERIAL               primary key,
+   id_project           INT4,
+   id_account           INT4,
+   id_designer          INT4,
+   chat_date            DATE                 not null,
+   foreign key (id_project) references project (id_project) on delete cascade,
+   foreign key (id_account) references personal_account (id_account) on delete set null,
+   foreign key (id_designer) references personal_account (id_account) on delete set null
+);
+create table chat_message (
+   id_messege           SERIAL               primary key,
+   id_account           INT4,
+   id_chat              INT4                 not null,
+   messege_content      VARCHAR(1024)        not null,
+   messege_date         TIMESTAMP            not null,
+   read_messege         BOOL                 not null,
+   foreign key (id_chat) references chat (id_chat) on delete cascade,
+   foreign key (id_account) references personal_account (id_account) on delete set null
+);
+create table messege_file (
+   id_file              SERIAL               primary key,
+   id_messege           INT4                 not null,
+   file_path            VARCHAR(2048)        not null,
+   file_upload_date     TIMESTAMP            not null,
+   foreign key (id_messege) references chat_message (id_messege) on delete cascade
+);
+create table documentation (
+   id_documentation     SERIAL               primary key,
+   id_project           INT4,
+   payment_receipt      TEXT                 not null,
+   foreign key (id_project) references project (id_project) on delete set null
+);
+create table feedback (
+   id_feedback          SERIAL               primary key,
+   id_project           INT4,
+   feedback_content     VARCHAR(1024)        not null,
+   feedback_raiting     INT4                 not null,
+   foreign key (id_project) references project (id_project) on delete set null
+);
+create table project_status_history (
+   id_history           SERIAL               primary key,
+   id_project           INT4                 not null,
+   status           VARCHAR(16)              not null,
+   change_data          DATE                 not null,
+   foreign key (id_project) references project (id_project) on delete cascade
+);
+create table notifications (
+   id_notification      SERIAL               primary key,
+   id_account           INT4                 not null,
+   notification_content VARCHAR(150)         not null,
+   notification_date    DATE                 not null,
+   read_notifications   BOOL                 not null,
+   foreign key (id_account) references personal_account (id_account) on delete cascade
+);
